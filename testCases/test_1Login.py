@@ -18,6 +18,7 @@ class Test_Login():
         self.lg.username()
         self.lg.password()
         self.lg.clickOnLoginButton()
+        sleep(6)
 
 
 

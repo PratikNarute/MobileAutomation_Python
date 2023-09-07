@@ -9,8 +9,11 @@ from pages.loginPage import LoginPage
 from pages.productType import ProductType
 
 
+
+name = ""
+
+
 class Test_ProductType:
-    name = ""
 
     @pytest.fixture(autouse=True)
     def objects(self):
@@ -24,8 +27,9 @@ class Test_ProductType:
         self.pt.createProductWithPositiveData()
 
     def test_impact_of_created_product_type(self):
-        self.name = pages.productType.name
-        self.pt.to_check_that_impact_of_created_product_type_on_the_table_list(self.name)
+        global name
+        name = pages.productType.name
+        self.pt.to_check_that_impact_of_created_product_type_on_the_product_type_table_list(name)
 
     @pytest.mark.skip(reason="Test case is not ready yet")
     def test_create_product_type_with_negative_data(self):

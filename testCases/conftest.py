@@ -2,7 +2,7 @@ from time import sleep
 
 import pytest
 from appium import webdriver
-from appium.webdriver.common.appiumby import AppiumBy
+
 
 
 @pytest.fixture(scope="class", autouse=True)

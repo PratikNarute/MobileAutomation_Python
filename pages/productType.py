@@ -1,3 +1,4 @@
+import base64
 from time import sleep
 
 from selenium.webdriver import ActionChains
@@ -9,10 +10,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from PIL import Image
+import pytesseract
+import io
 
+import utility
 from utility import performActions
+from utility import getImages_Text
 
-masterMenu_button = "//android.widget.Button[@bounds='[1158,2868][1326,2900]']"
+masterMenu_button = "//android.widget.Button[@bounds='[1438,1924][1564,2050]']"
 productType_icon = "//android.widget.ImageView[@content-desc='Product Type']"
 add_button = "(//android.widget.Button)[3]"
 name_input = "(//android.widget.EditText)[1]"
@@ -45,7 +51,16 @@ class ProductType:
         name = self.driver.find_element(By.XPATH, name_input).get_attribute('text')
         performActions.clickAction(self, self.driver, create_button)
 
-    def to_check_that_impact_of_created_product_type_on_the_table_list(self, data):
+        self.text = getImages_Text.getText(self.driver)
+        if "Property Type created successfully." in self.text:
+            print("Expected toaster message is displayed")
+            assert True
+        else:
+            print("Expected toaster message is not displayed")
+            assert False
+
+
+    def to_check_that_impact_of_created_product_type_on_the_product_type_table_list(self, data):
         global result
         print("Name of product type:", data)
         try:  # Exception code we write here
